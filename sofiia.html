@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя кохана Софія ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .neon-text {
+            text-shadow: 
+                0 0 10px #ff4d94,
+                0 0 20px #ff4d94,
+                0 0 40px #ff1493,
+                0 0 60px #ff1493;
+        }
+        
+        .card {
+            background: rgba(30, 0, 20, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 77, 148, 0.5);
+        }
+        
+        .message-text {
+            font-size: 1.1rem;
+            line-height: 1.75;
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        .heart-float {
+            animation: heartFloat 5s ease-in-out infinite;
+        }
+
+        @keyframes heartFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-[#1a000f] via-[#2a001a] to-[#1a000f] min-h-screen flex items-center justify-center overflow-hidden relative">
+
+    <!-- Background hearts -->
+    <div id="hearts-bg" class="absolute inset-0 pointer-events-none"></div>
+
+    <div class="max-w-md w-full mx-auto px-6 py-12">
+        <div class="card rounded-3xl p-10 md:p-12 shadow-2xl text-center relative">
+            
+            <!-- Floating heart -->
+            <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 text-6xl heart-float z-10">
+                ❤️
+            </div>
+
+            <h1 class="text-5xl md:text-6xl font-bold neon-text mb-10 tracking-wide" 
+                style="font-family: 'Dancing Script', cursive; color: #ff69b4;">
+                Моя кохана Софія
+            </h1>
+            
+            <div id="message" class="message-text text-pink-100 text-justify mb-10 px-2">
+            </div>
+            
+            <div class="h-px bg-gradient-to-r from-transparent via-pink-300/50 to-transparent my-8"></div>
+            
+            <div class="text-pink-300 text-base">
+                З любов’ю, той, хто не може без тебе ❤️
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="text-center mt-12">
+            <button onclick="celebrate()" 
+                    class="px-14 py-6 bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold text-xl rounded-2xl transition-all duration-300 shadow-lg hover:shadow-pink-500/60 w-full max-w-xs">
+                Прийняти моє серце
+            </button>
+        </div>
+    </div>
+
+    <!-- Celebration -->
+    <div id="celebration" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-50">
+        <div class="text-center px-6">
+            <div class="text-7xl mb-6">💖🎉💖</div>
+            <h2 class="text-5xl font-bold neon-text mb-4" style="font-family: 'Dancing Script', cursive;">
+                Я тебе кохаю, Софія!
+            </h2>
+            <p class="text-2xl text-pink-200">Ти — моє все ✨</p>
+            <button onclick="location.reload()" class="mt-10 px-8 py-4 border border-pink-400 rounded-full hover:bg-white/10 transition-colors">
+                Ще раз
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const messageText = `Софія, з того моменту, як ти з’явилася в моєму житті, все змінилося. Ти робиш кожен день яскравішим, кожну мить — особливішою. Твоя усмішка, твій голос, твої очі — я закохався в усе це. Я хочу бути поруч з тобою завжди, підтримувати тебе, радувати і просто кохати. Ти — моя найпрекрасніша мрія, яка стала реальністю. Я тебе дуже-дуже кохаю.`;
+
+        function typeMessage() {
+            let i = 0;
+            const element = document.getElementById('message');
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < messageText.length) {
+                    element.innerHTML += messageText[i] === ' ' ? '&nbsp;' : messageText[i];
+                    i++;
+                    setTimeout(type, 45);
+                }
+            }
+            type();
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.textContent = '❤️';
+            heart.style.position = 'absolute';
+            heart.style.fontSize = (Math.random() * 28 + 18) + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '-30px';
+            heart.style.opacity = Math.random() * 0.7 + 0.5;
+            heart.style.animation = `floatHeart ${Math.random() * 12 + 14}s linear infinite`;
+            document.getElementById('hearts-bg').appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 30000);
+        }
+
+        function celebrate() {
+            document.getElementById('celebration').classList.remove('hidden');
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createHeart, i * 8);
+            }
+        }
+
+        window.onload = () => {
+            typeMessage();
+            
+            // Background hearts
+            for (let i = 0; i < 40; i++) {
+                setTimeout(createHeart, i * 80);
+            }
+            
+            setInterval(() => {
+                if (Math.random() > 0.4) createHeart();
+            }, 500);
+        };
+    </script>
+</body>
+</html>
