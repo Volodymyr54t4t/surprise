@@ -116,6 +116,21 @@
             hyphens: auto;
         }
 
+        .sticky-button {
+            position: sticky;
+            bottom: 18px;
+            z-index: 30;
+            display: flex;
+            justify-content: center;
+            margin-top: 1.25rem;
+            pointer-events: none;
+        }
+
+        .sticky-button button {
+            pointer-events: auto;
+            box-shadow: 0 12px 35px rgba(244, 114, 182, 0.35);
+        }
+
         .heart-float {
             animation: heartFloat 4.6s ease-in-out infinite;
         }
@@ -167,11 +182,12 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center overflow-hidden relative px-4 py-6 sm:py-10">
+<body class="min-h-screen relative px-4 py-6 sm:py-10">
     <div id="hearts-bg" class="absolute inset-0 pointer-events-none z-0"></div>
     <div id="sparkles" class="absolute inset-0 pointer-events-none z-0"></div>
 
-    <div class="max-w-2xl w-full mx-auto relative z-10">
+    <div class="min-h-screen w-full flex items-center justify-center relative z-10 py-4 sm:py-8">
+        <div class="max-w-2xl w-full mx-auto">
         <div class="card rounded-[2rem] p-5 sm:p-8 md:p-10 text-center relative">
             <div class="absolute -top-8 left-1/2 transform -translate-x-1/2 text-6xl heart-float z-10">💖</div>
 
@@ -197,11 +213,12 @@
             </div>
         </div>
 
-        <div class="text-center mt-6 sm:mt-8">
+        <div class="sticky-button mt-6 sm:mt-8">
             <button onclick="celebrate()"
                 class="px-10 py-4 bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 hover:from-pink-600 hover:via-rose-600 hover:to-fuchsia-600 text-white font-bold text-lg rounded-full transition-all duration-300 shadow-lg hover:shadow-pink-500/40 w-full max-w-xs">
                 Відкрити мій сюрприз
             </button>
+        </div>
         </div>
     </div>
 
@@ -231,6 +248,13 @@
                 if (i < messageText.length) {
                     element.innerHTML += messageText[i] === ' ' ? '&nbsp;' : messageText[i];
                     i++;
+
+                    const target = document.documentElement.scrollHeight;
+                    window.scrollTo({
+                        top: target,
+                        behavior: 'smooth'
+                    });
+
                     setTimeout(type, 35);
                 }
             }
